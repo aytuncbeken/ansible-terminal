@@ -1,0 +1,1 @@
+# ssh-connector-for-ansible
