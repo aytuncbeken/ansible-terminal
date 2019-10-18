@@ -6,7 +6,7 @@ setup(name="ansible-ssh",
       description='SSH/SFTP Connection Manager for Ansible',
       author='Aytunc Beken',
       author_email='aytuncbeken.ab@gmail.com',
-      packages=find_packages(),
+      packages=find_packages(exclude=["bin"]),
       install_requires=['ansible'],
       entry_points={
           'console_scripts': ['ansible-ssh=cli.main:main']
