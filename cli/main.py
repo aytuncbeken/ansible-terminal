@@ -21,7 +21,7 @@ argument_parser.add_argument('--ansible-inventory-path', dest='inventory_path', 
 argument_parser.add_argument('--debug', dest="debug", action="store_const", required=False, help="Enable debug logs",
                              const="debug")
 argument_parser.add_argument('-v', '--version', action='version',
-                             version='%(prog)s ' + pkg_resources.require("ansible-ssh")[0].version)
+                             version='%(prog)s ' + pkg_resources.require("ansible-terminal")[0].version)
 cli_args = argument_parser.parse_args()
 
 # Logging Configuration
@@ -111,7 +111,7 @@ def host_connection(host):
 
 def print_header():
     os.system('clear')
-    print "Ansible SSH Command Line Utility -", pkg_resources.require("ansible-ssh")[0].version
+    print "Ansible SSH Command Line Utility -", pkg_resources.require("ansible-terminal")[0].version
 
 
 if __name__ == "__main__":
