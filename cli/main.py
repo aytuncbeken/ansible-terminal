@@ -30,7 +30,7 @@ else:
     logger.setLevel(logging.DEBUG)
 
 
-def main():
+def cli():
     logger.debug("Command Line Utility Started")
     logger.debug("Parsing Inventory %s", cli_args.inventory_path)
     inventory = inventory_parser.get_inventory(cli_args.inventory_path)
@@ -101,7 +101,3 @@ def host_connection(host):
         command = command + " -i " + ansible_ssh_private_key_file
     subprocess.call(command, shell=True)
     print (host)
-
-
-if __name__ == "__main__":
-    main()
