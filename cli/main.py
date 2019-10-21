@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
 import argparse
-import logging
 from parser import inventory_parser
+import logging
 from distutils.spawn import find_executable
 import subprocess
-import parser
+import pkg_resources
+import os
 
 # Set argument parser
 connection_types = ['ssh', 'sftp']
@@ -19,6 +20,8 @@ argument_parser.add_argument('--ansible-inventory-path', dest='inventory_path', 
                                   "Inventory files will be parsed recurively")
 argument_parser.add_argument('--debug', dest="debug", action="store_const", required=False, help="Enable debug logs",
                              const="debug")
+argument_parser.add_argument('-v', '--version', action='version',
+                             version='%(prog)s ' + pkg_resources.require("ansible-ssh")[0].version)
 cli_args = argument_parser.parse_args()
 
 # Logging Configuration
@@ -30,12 +33,10 @@ else:
     logger.setLevel(logging.DEBUG)
 
 
-def cli():
-    logger.debug("Command Line Utility Started")
+def main():
     logger.debug("Parsing Inventory %s", cli_args.inventory_path)
     inventory = inventory_parser.get_inventory(cli_args.inventory_path)
     main_interaction(inventory)
-
 
 
 def check_pre_reqs():
@@ -45,15 +46,16 @@ def check_pre_reqs():
             logger.error('Missing dependency. %s command line utility is missing.', pre_req)
             quit(1)
 
+
 def main_interaction(inventory):
     while True:
+        print_header()
         for index, type in enumerate(connection_types):
             print("[{}] {}".format(index, type))
         index = raw_input("Select connection type [default=ssh]:")
         if index and int(index) in range(0, len(connection_types)):
             connection_type = connection_types[int(index)]
             group_interaction(inventory)
-            break
         elif not index:
             group_interaction(inventory)
         else:
@@ -63,23 +65,28 @@ def main_interaction(inventory):
 def group_interaction(inventory):
     groups = inventory_parser.get_groups_from_inventory(inventory)
     while True:
+        print_header()
         for index, group in enumerate(groups):
-            print("[{}] {}".format(index, group))
-        index = input("Select group []: ")
-        if index in range(0, len(groups)):
-            host_interaction(groups.values()[index])
+            host_num = len(groups[group].hosts)
+            if host_num > 0:
+                print("[{}] {}({})".format(index, group, host_num))
+        index = raw_input("Select group []: ")
+        if index and int(index) in range(0, len(groups)):
+            host_interaction(groups.values()[int(index)])
             break
         else:
             continue
 
+
 def host_interaction(group):
     hosts = group.hosts
     while True:
+        print_header()
         for index, host in enumerate(hosts):
             print("[{}] {}".format(index, host))
-        index = input("Select host []: ")
-        if index in range(0, len(hosts)):
-            host_connection(hosts[index])
+        index = raw_input("Select host []: ")
+        if index and int(index) in range(0, len(hosts)):
+            host_connection(hosts[int(index)])
             break
         else:
             continue
@@ -88,16 +95,24 @@ def host_interaction(group):
 def host_connection(host):
     command = connection_type
     ansible_ssh_user = "root"
-    ansible_host = host
+    ansible_host = str(host)
     ansible_ssh_private_key_file = None
     if 'ansible_ssh_user' in host.vars:
         ansible_ssh_user = host.vars.get('ansible_ssh_user')
-        command = command + " " + ansible_ssh_user
+    command = command + " " + ansible_ssh_user
     if 'ansible_host' in host.vars:
         ansible_host = host.vars.get('ansible_host')
-        command = command + "@" + ansible_host
+    command = command + '@' + ansible_host
     if 'ansible_ssh_private_key_file' in host.vars:
         ansible_ssh_private_key_file = host.vars.get('ansible_ssh_private_key_file')
         command = command + " -i " + ansible_ssh_private_key_file
     subprocess.call(command, shell=True)
-    print (host)
+
+
+def print_header():
+    os.system('clear')
+    print "Ansible SSH Command Line Utility -", pkg_resources.require("ansible-ssh")[0].version
+
+
+if __name__ == "__main__":
+    main()
