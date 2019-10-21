@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 python -m pip install setuptools wheel bumpversion setupext-janitor
 cd ../
 bumpversion patch --allow-dirty
