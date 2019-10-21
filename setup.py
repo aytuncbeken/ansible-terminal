@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name="ansible-terminal",
-      version='0.9.0',
+      version='0.10.0',
       long_description=long_description,
       long_description_content_type="text/markdown",
       python_requires='>=2.7, <=3.0',
@@ -14,11 +14,6 @@ setup(name="ansible-terminal",
       packages=find_packages(exclude=["bin"]),
       install_requires=['ansible'],
       url="https://github.com/aytuncbeken/ansible-terminal",
-      classifiers=[
-          "Programming Language :: Python :: 2.7",
-          "License :: OSI Approved :: MIT License",
-          "Operating System :: Linux",
-      ],
       entry_points={
           'console_scripts': ['ansible-terminal=cli.main:main']
       })
