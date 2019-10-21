@@ -1,4 +1,13 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+"""
+    This includes necessary functions for CLI and Main.
+"""
+__author__ = "Aytunc Beken"
+__copyright__ = "Copyright (C) 2019 Aytunc Beken"
+__license__ = "MIT"
+__maintainer__ = "Aytunc Beken"
+__email__ = "aytuncbeken.ab@gmail.com"
 
 import argparse
 from parser import inventory_parser
@@ -34,12 +43,20 @@ else:
 
 
 def main():
+    """
+    Main function of the script
+    :return: void
+    """
     logger.debug("Parsing Inventory %s", cli_args.inventory_path)
     inventory = inventory_parser.get_inventory(cli_args.inventory_path)
     main_interaction(inventory)
 
 
 def check_pre_reqs():
+    """
+    Checks dependencies
+    :return: void
+    """
     pre_reqs = ['ssh', 'sftp']
     for pre_req in pre_reqs:
         if find_executable(pre_req) is None:
@@ -48,6 +65,11 @@ def check_pre_reqs():
 
 
 def main_interaction(inventory):
+    """
+    Main CLI interaction for Connection Types
+    :param inventory: Inventory
+    :return: void
+    """
     while True:
         print_header()
         for index, type in enumerate(connection_types):
@@ -63,6 +85,11 @@ def main_interaction(inventory):
 
 
 def group_interaction(inventory):
+    """
+    Group CLI Integration for Ansible Inventory Groups
+    :param inventory: Inventory
+    :return: void
+    """
     groups = inventory_parser.get_groups_from_inventory(inventory)
     while True:
         print_header()
@@ -79,6 +106,11 @@ def group_interaction(inventory):
 
 
 def host_interaction(group):
+    """
+    Host CLI Integration for Ansible Hosts in given Ansible Inventory Group
+    :param group: Group Name
+    :return: void
+    """
     hosts = group.hosts
     while True:
         print_header()
@@ -93,6 +125,11 @@ def host_interaction(group):
 
 
 def host_connection(host):
+    """
+    Open SSH/SFTP connection to selected host
+    :param host: Ansible Inventory Host
+    :return: void
+    """
     command = connection_type
     ansible_ssh_user = "root"
     ansible_host = str(host)
@@ -110,6 +147,10 @@ def host_connection(host):
 
 
 def print_header():
+    """
+    Print CLI header and clean screen
+    :return: void
+    """
     os.system('clear')
     print "Ansible SSH Command Line Utility -", pkg_resources.require("ansible-terminal")[0].version
 
