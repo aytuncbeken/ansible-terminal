@@ -6,3 +6,5 @@ rm -rf build
 rm -rf dist
 
 python setup.py sdist bdist_wheel
+pip install ./dist/*.gz
+ansible-ssh
