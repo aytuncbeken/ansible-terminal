@@ -13,6 +13,12 @@ setup(name="ansible-terminal",
       author_email='aytuncbeken.ab@gmail.com',
       packages=find_packages(exclude=["bin"]),
       install_requires=['ansible'],
+      url="https://github.com/aytuncbeken/ansible-terminal",
+      classifiers=[
+          "Programming Language :: Python :: 2.7",
+          "License :: MIT License",
+          "Operating System :: Linux",
+      ],
       entry_points={
           'console_scripts': ['ansible-terminal=cli.main:main']
       })
