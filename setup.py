@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name="ansible-ssh",
-      version='0.2.0',
+      version='0.3.0',
       python_requires='>=2.7, <=3.0',
       description='SSH/SFTP Connection Manager for Ansible',
       author='Aytunc Beken',
