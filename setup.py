@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name="ansible-terminal",
-      version='0.1.0',
+      version='0.4.0',
       python_requires='>=2.7, <=3.0',
       description='SSH/SFTP Terminal Manager for Ansible',
       author='Aytunc Beken',
