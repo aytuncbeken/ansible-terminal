@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name="ansible-terminal",
-      version='0.7.0',
+      version='0.8.0',
       long_description=long_description,
       long_description_content_type="text/markdown",
       python_requires='>=2.7, <=3.0',
