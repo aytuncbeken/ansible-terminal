@@ -17,7 +17,7 @@ Work with Ansible Inventory
 PyPI - https://pypi.org/project/ansible-terminal/
 
 ## Notes
-For default SSH/SFTP connection below is used.
+For default, Below parameters are used for SSH/SFTP connection.
 ```
 user: root
 ssh-key: ~/.ssh/

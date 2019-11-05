@@ -29,7 +29,9 @@ def get_groups_from_inventory(inventory):
     :param inventory: Inventory
     :return: Groups
     """
-    return inventory.groups
+    groups = inventory.groups
+    del groups['all']
+    return groups
 
 
 def get_hosts_from_group(group):
@@ -39,3 +41,13 @@ def get_hosts_from_group(group):
     :return: Hosts
     """
     return group['hosts']
+
+
+def search_for_host(inventory, string_to_search):
+    all_hosts = inventory.hosts
+    filtered_hosts = []
+    for index, host in enumerate(all_hosts):
+        if string_to_search in host:
+            ansible_host = all_hosts[host]
+            filtered_hosts.append(ansible_host)
+    return filtered_hosts
