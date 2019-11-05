@@ -12,7 +12,7 @@ Print version:
 
 Work with Ansible Inventory
 
-```ansible-ssh --ansible-inventory-path <Full Path To Inventory Directory or File>``` 
+```ansible-ssh --ansible-inventory-path <Full Path To Inventory Directory or File> --protocol {sftp, ssh}``` 
 
 PyPI - https://pypi.org/project/ansible-terminal/
 
