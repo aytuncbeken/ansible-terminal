@@ -32,11 +32,12 @@ argument_parser.add_argument('-a', '--ansible-inventory-path', dest='inventory_p
                              help="Path for Ansible Inventory file or directory. If directory is given, all Ansible "
                                   "Inventory files will be parsed recursively")
 argument_parser.add_argument('-p', '--protocol', dest='protocol', action='store', required=True,
-                             choices=connection_types, help='Protocol type for connection to Hosts')
+                             choices=connection_types, help='Protocol type for connection to Hosts. ssh / sftp')
 argument_parser.add_argument('--debug', dest="debug", action="store_const", required=False, help="Enable debug logs",
                              const="debug")
 argument_parser.add_argument('-v', '--version', action='version',
                              version='%(prog)s ' + pkg_resources.require("ansible-terminal")[0].version)
+argument_parser.add_argument('-n', '--name', action='store', required=False, dest='name')
 cli_args = argument_parser.parse_args()
 
 # Logging Configuration
@@ -79,8 +80,12 @@ def main_interaction(inventory):
     :return: void
     """
     groups = inventory_parser.get_groups_from_inventory(inventory)
+    name = cli_args.name
     while True:
         print_header()
+        if name is not None:
+            host_interaction(None, inventory_parser.search_for_host(inventory, name))
+            quit(0)
         for index, group in enumerate(groups):
             host_num = len(groups[group].hosts)
             if host_num > 0:
