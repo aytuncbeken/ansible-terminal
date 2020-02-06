@@ -4,15 +4,15 @@ This script list hosts which are defined in Ansible Inventory and open SSH/SFTP 
 ## Usage
 Print usage:
 
-```ansible-ssh ```
+```ansible-terminal ```
 
 Print version:
 
-```ansible-ssh -v```
+```ansible-terminal -v```
 
 Work with Ansible Inventory
 
-```ansible-ssh --ansible-inventory-path <Full Path To Inventory Directory or File> --protocol {sftp, ssh}``` 
+```ansible-terminal --ansible-inventory-path <Full Path To Inventory Directory or File> --protocol {sftp, ssh}``` 
 
 PyPI - https://pypi.org/project/ansible-terminal/
 
