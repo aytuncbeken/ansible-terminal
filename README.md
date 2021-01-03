@@ -21,21 +21,18 @@ Open SSH/SFTP session to hosts defined in Ansible Inventory
 
 optional arguments:
   -h, --help            show this help message and exit
-  -a [INVENTORY_PATH [INVENTORY_PATH ...]], --ansible-inventory-path [INVENTORY_PATH [INVENTORY_PATH ...]]
-                        Path for Ansible Inventory file or directory. If
-                        directory is given, all Ansible Inventory files will
-                        be parsed recursively
-  -p {ssh,sftp}, --protocol {ssh,sftp}
-                        Protocol type for connection to Hosts. ssh / sftp
+  -a [INVENTORY_PATH [INVENTORY_PATH ...]]
+                        Path for Ansible Inventory file or directory. Multiple
+                        definitions can be done.If directory is given, all
+                        Ansible Inventory files will be parsed recursively
+  -p {ssh,sftp}         Protocol type for connection to Hosts. ssh / sftp
   --debug               Enable debug logs
-  -v, --version         show program's version number and exit
-  -n NAME, --name NAME  Name of host to search. If one host matches, will
+  -v                    show program's version number and exit
+  -n NAME               Name of host to search. If one host matches, will
                         connect automaically
-  -u SSH_USER, --ssh-user SSH_USER
-                        SSH Username for ssh connection type. This will
+  -u SSH_USER           SSH Username for ssh connection type. This will
                         override ansible_ssh_user for all connections
-  -k SSH_KEY, --ssh-key-file SSH_KEY
-                        SSH Key File path for ssh connection type. This will
+  -k SSH_KEY            SSH Key File path for ssh connection type. This will
                         override ansible_ssh_private_key_file for all
                         connections
 ``` 
