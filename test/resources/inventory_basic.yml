@@ -1,0 +1,10 @@
+all:
+  hosts:
+    ungrouped.server.com:
+  children:
+    group1:
+      hosts:
+        group1.server.com:
+    group2:
+      hosts:
+        group2.server.com:

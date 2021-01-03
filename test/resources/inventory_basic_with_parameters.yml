@@ -1,10 +1,16 @@
 all:
   hosts:
     ungrouped.server.com:
+      ansible_user: ungrouped
+      ansible_ssh_private_key_file: ungrouped
   children:
     group1:
       hosts:
         group1.server.com:
+          ansible_user: group1
+          ansible_ssh_private_key_file: group1
     group2:
       hosts:
         group2.server.com:
+          ansible_user: group2
+          ansible_ssh_private_key_file: group2
